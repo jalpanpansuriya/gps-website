@@ -12,6 +12,12 @@
   var nav = document.querySelector(".nav");
 
   if (navToggle && nav) {
+    function closeMenu() {
+      navToggle.setAttribute("aria-expanded", "false");
+      nav.classList.remove("is-open");
+      navToggle.setAttribute("aria-label", "Open menu");
+    }
+
     navToggle.addEventListener("click", function () {
       var isOpen = navToggle.getAttribute("aria-expanded") === "true";
       navToggle.setAttribute("aria-expanded", !isOpen);
@@ -23,10 +29,14 @@
     var navLinks = nav.querySelectorAll(".nav-link");
     navLinks.forEach(function (link) {
       link.addEventListener("click", function () {
-        navToggle.setAttribute("aria-expanded", "false");
-        nav.classList.remove("is-open");
-        navToggle.setAttribute("aria-label", "Open menu");
+        closeMenu();
       });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
     });
   }
 })();

@@ -32,6 +32,7 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-white);
+  overflow-x: hidden;
 }
 
 img {
@@ -1069,8 +1070,21 @@ a:hover {
 
 /* ----- Mobile nav ----- */
 @media (max-width: 767px) {
+  .header-inner {
+    padding: 0.6rem 0.75rem;
+    min-height: 64px;
+  }
+
+  .logo {
+    height: 40px;
+    max-width: calc(100vw - 105px);
+    object-fit: contain;
+  }
+
   .nav-toggle {
     display: flex;
+    width: 40px;
+    height: 40px;
   }
 
   .nav {
@@ -1083,21 +1097,116 @@ a:hover {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
+    z-index: 99;
   }
 
   .nav.is-open {
-    max-height: 280px;
+    max-height: min(78dvh, 420px);
+    overflow-y: auto;
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
   }
 
   .nav-list {
     flex-direction: column;
-    padding: 1rem;
+    align-items: stretch;
+    padding: 0.5rem 1rem 1rem;
     gap: 0;
   }
 
   .nav-link {
-    padding: 0.75rem 1rem;
+    padding: 0.62rem 0.9rem;
     width: 100%;
+    text-align: center;
+  }
+
+  .hero {
+    min-height: 58vh;
+  }
+
+  .hero-content {
+    padding: 1.25rem 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.55rem, 7vw, 2rem);
+  }
+
+  .hero-subtitle {
+    font-size: 0.92rem;
+  }
+
+  .btn {
+    padding: 0.68rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .section {
+    padding: 2.9rem 0;
+  }
+
+  .section-title {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .admissions-banner {
+    padding: 0.85rem 0.75rem;
+  }
+
+  .admissions-banner-text {
+    font-size: 1.05rem;
+  }
+
+  .footer {
+    padding-top: 2rem;
+  }
+
+  .footer-grid {
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .footer-social-links {
+    gap: 0.5rem;
+  }
+}
+
+@supports not (height: 100dvh) {
+  @media (max-width: 767px) {
+    .nav.is-open {
+      max-height: min(78vh, 420px);
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .logo {
+    height: 36px;
+    max-width: calc(100vw - 96px);
+  }
+
+  .hero {
+    min-height: 52vh;
+  }
+
+  .hero-title {
+    font-size: clamp(1.4rem, 7.5vw, 1.85rem);
+  }
+
+  .hero-subtitle {
+    font-size: 0.88rem;
+  }
+
+  .admissions-banner-content {
+    gap: 0.35rem 0.75rem;
+  }
+
+  .admissions-banner-text {
+    font-size: 0.98rem;
+  }
+
+  .admissions-banner-cta {
+    font-size: 0.82rem;
   }
 }
 
@@ -1179,6 +1288,10 @@ a:hover {
   vertical-align: middle;
 }
 
+.attendance-cell-label {
+  display: none;
+}
+
 .attendance-table th {
   font-size: 0.85rem;
   letter-spacing: 0.02em;
@@ -1237,4 +1350,111 @@ a:hover {
 .attendance-action-btn:disabled {
   opacity: 0.55;
   cursor: not-allowed;
+}
+
+@media (max-width: 767px) {
+  .attendance-panel {
+    padding-top: 2.2rem;
+  }
+
+  .attendance-toolbar {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .attendance-toolbar .btn {
+    width: 100%;
+  }
+
+  .attendance-meta {
+    margin-bottom: 0.8rem;
+  }
+
+  .attendance-table-wrap {
+    overflow: visible;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .attendance-table {
+    min-width: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .attendance-table thead {
+    display: none;
+  }
+
+  .attendance-table tbody,
+  .attendance-table tr,
+  .attendance-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .attendance-table tr {
+    background: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 0.85rem;
+    overflow: hidden;
+  }
+
+  .attendance-table td {
+    border-bottom: 1px solid #eef1f4;
+    padding: 0.62rem 0.85rem;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .attendance-table td:last-child {
+    border-bottom: none;
+  }
+
+  .attendance-cell-label {
+    display: block !important;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .attendance-cell-value {
+    display: block;
+    text-align: right;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .attendance-empty {
+    text-align: left !important;
+    display: block !important;
+  }
+
+  .attendance-actions-cell {
+    white-space: normal;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+    padding-top: 0.75rem !important;
+  }
+
+  .attendance-actions-cell .attendance-cell-label {
+    grid-column: 1 / -1;
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
+
+  .attendance-action-btn {
+    width: 100%;
+    margin-right: 0;
+    padding: 0.58rem 0.55rem;
+    font-size: 0.86rem;
+  }
 }

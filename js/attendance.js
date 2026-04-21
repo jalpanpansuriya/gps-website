@@ -129,16 +129,23 @@
     students.forEach(function (student) {
       var status = statusByStudent[student.id] || { IN: false, OUT: false };
       var statusLabel = getStatusLabel(status);
+      function cell(label, value) {
+        return (
+          '<td><span class="attendance-cell-label">' + label + '</span>' +
+          '<span class="attendance-cell-value">' + value + "</span></td>"
+        );
+      }
 
       var tr = document.createElement("tr");
       tr.innerHTML =
-        "<td>" + (student.roll_no || "-") + "</td>" +
-        "<td>" + student.full_name + "</td>" +
-        "<td>" + student.class_name + "</td>" +
-        "<td>" + (student.section || "-") + "</td>" +
-        "<td>" + maskPhone(student.parent_phone) + "</td>" +
-        '<td><span class="attendance-status-pill">' + statusLabel + "</span></td>" +
+        cell("Roll No", student.roll_no || "-") +
+        cell("Student", student.full_name) +
+        cell("Class", student.class_name) +
+        cell("Section", student.section || "-") +
+        cell("Parent Phone", maskPhone(student.parent_phone)) +
+        cell("Status", '<span class="attendance-status-pill">' + statusLabel + "</span>") +
         '<td class="attendance-actions-cell">' +
+        '<span class="attendance-cell-label">Actions</span>' +
         '<button class="btn attendance-action-btn attendance-in-btn" type="button">Mark IN</button>' +
         '<button class="btn attendance-action-btn attendance-out-btn" type="button">Mark OUT</button>' +
         "</td>";
