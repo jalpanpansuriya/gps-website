@@ -1100,3 +1100,141 @@ a:hover {
     width: 100%;
   }
 }
+
+/* ----- Attendance panel ----- */
+.attendance-panel {
+  background: var(--color-light);
+}
+
+.attendance-message {
+  min-height: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.attendance-message-success {
+  color: #0b7a28;
+}
+
+.attendance-message-error {
+  color: #b42318;
+}
+
+.attendance-message-info {
+  color: #1d4ed8;
+}
+
+.attendance-toolbar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.9rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.attendance-field label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.attendance-field input {
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: var(--radius);
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  background: var(--color-white);
+}
+
+.attendance-date-field input {
+  min-height: 42px;
+}
+
+.attendance-meta {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+}
+
+.attendance-table-wrap {
+  background: var(--color-white);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 820px;
+}
+
+.attendance-table th,
+.attendance-table td {
+  padding: 0.8rem 0.9rem;
+  border-bottom: 1px solid #eaecf0;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.attendance-table th {
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: #f8f9fb;
+}
+
+.attendance-empty {
+  text-align: center !important;
+  color: var(--color-text-muted);
+}
+
+.attendance-status-pill {
+  display: inline-block;
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  background: #fff2e8;
+  color: #c44a03;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.attendance-actions-cell {
+  white-space: nowrap;
+}
+
+.attendance-action-btn {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.88rem;
+  margin-right: 0.45rem;
+}
+
+.attendance-action-btn:last-child {
+  margin-right: 0;
+}
+
+.attendance-in-btn {
+  background: #0f8a3c;
+  color: #fff;
+}
+
+.attendance-in-btn:hover {
+  background: #0b7a34;
+}
+
+.attendance-out-btn {
+  background: #8a320f;
+  color: #fff;
+}
+
+.attendance-out-btn:hover {
+  background: #74290b;
+}
+
+.attendance-action-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

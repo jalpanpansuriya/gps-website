@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teacher attendance panel for Shri Swaminarayan Gurukul Public School.">
+  <title>Attendance Panel | Shri Swaminarayan Gurukul Public School</title>
+  <link rel="icon" href="images/GPS_Logo.gif" type="image/gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="images/GPS_Logo.gif" alt="Shri Swaminarayan Gurukul Public School" class="logo">
+      </a>
+      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="facilities.html" class="nav-link">Facilities</a></li>
+          <li><a href="index.html#mission-vision" class="nav-link">Mission & Vision</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="attendance.html" class="nav-link active">Attendance</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-hero-title">Attendance Panel</h1>
+        <p class="page-hero-subtitle">Mark student IN/OUT attendance and queue parent SMS updates</p>
+      </div>
+    </section>
+
+    <section class="section attendance-panel">
+      <div class="container">
+        <div id="attendance-message" class="attendance-message" role="status" aria-live="polite"></div>
+
+        <div class="attendance-toolbar">
+          <div class="attendance-field">
+            <label for="class-filter">Class</label>
+            <input id="class-filter" type="text" placeholder="e.g. 5">
+          </div>
+          <div class="attendance-field">
+            <label for="section-filter">Section</label>
+            <input id="section-filter" type="text" placeholder="e.g. A">
+          </div>
+          <div class="attendance-field attendance-date-field">
+            <label for="attendance-date">Date</label>
+            <input id="attendance-date" type="date">
+          </div>
+          <button id="load-students-btn" class="btn btn-primary" type="button">Load Students</button>
+        </div>
+
+        <p id="attendance-meta" class="attendance-meta"></p>
+
+        <div class="attendance-table-wrap">
+          <table class="attendance-table">
+            <thead>
+              <tr>
+                <th>Roll No</th>
+                <th>Student</th>
+                <th>Class</th>
+                <th>Section</th>
+                <th>Parent Phone</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="attendance-table-body">
+              <tr>
+                <td colspan="7" class="attendance-empty">Load students to start marking attendance.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="footer-school-name">Shri Swaminarayan Gurukul Public School</p>
+          <p class="footer-address">Plot No. 508, Sardar Park, GIDC, Ankleshwar, Bharuch, Gujarat.</p>
+          <p class="footer-managed">Managed by Shree Swaminarayan Sevaniketan</p>
+        </div>
+        <div class="footer-links">
+          <p class="footer-heading">Quick Links</p>
+          <ul class="footer-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="facilities.html">Facilities</a></li>
+            <li><a href="attendance.html">Attendance</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Shri Swaminarayan Gurukul Public School. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/attendance.js"></script>
+</body>
+</html>
