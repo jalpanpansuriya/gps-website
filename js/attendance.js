@@ -5,17 +5,36 @@
   var classFilterInput = document.getElementById("class-filter");
   var sectionFilterInput = document.getElementById("section-filter");
   var loadStudentsBtn = document.getElementById("load-students-btn");
+  var logoutBtn = document.getElementById("logout-btn");
+  var attendanceUser = document.getElementById("attendance-user");
   var tableBody = document.getElementById("attendance-table-body");
   var messageBox = document.getElementById("attendance-message");
   var attendanceMeta = document.getElementById("attendance-meta");
+  var activeSession = null;
 
   if (!window.supabaseClient) {
     showMessage("Supabase client not loaded. Check API key setup.", "error");
     return;
   }
 
-  setDefaultDate();
-  loadStudentsBtn.addEventListener("click", loadStudents);
+  initialize();
+
+  async function initialize() {
+    var sessionResult = await window.supabaseClient.auth.getSession();
+    var session = sessionResult.data ? sessionResult.data.session : null;
+    if (!session) {
+      window.location.href = "login.html?redirect=attendance.html";
+      return;
+    }
+
+    activeSession = session;
+    attendanceUser.textContent = "Signed in as " + (session.user.email || "Teacher");
+
+    setDefaultDate();
+    loadStudentsBtn.addEventListener("click", loadStudents);
+    logoutBtn.addEventListener("click", logout);
+    await loadStudents();
+  }
 
   function setDefaultDate() {
     attendanceDateInput.value = getIndiaDateString();
@@ -49,6 +68,11 @@
   function setLoadingState(isLoading) {
     loadStudentsBtn.disabled = isLoading;
     loadStudentsBtn.textContent = isLoading ? "Loading..." : "Load Students";
+  }
+
+  async function logout() {
+    await window.supabaseClient.auth.signOut();
+    window.location.href = "login.html";
   }
 
   async function loadStudents() {
@@ -186,38 +210,18 @@
     showMessage("Saving attendance for " + student.full_name + "...", "info");
 
     try {
-      var attendanceInsert = await window.supabaseClient
-        .from("attendance")
-        .insert({
-          student_id: student.id,
-          attendance_date: selectedDate,
-          event_type: eventType,
-          note: "Marked from website attendance panel"
-        })
-        .select("id")
-        .single();
-
-      if (attendanceInsert.error) {
-        throw attendanceInsert.error;
+      if (!activeSession) {
+        throw new Error("Session expired. Please login again.");
       }
 
-      var messageBody = eventType === "IN"
-        ? "Dear Parent, " + student.full_name + " has reached school safely."
-        : "Dear Parent, " + student.full_name + " has left school.";
+      var attendanceRpc = await window.supabaseClient.rpc("mark_attendance", {
+        p_student_id: student.id,
+        p_event_type: eventType,
+        p_note: "Marked from website attendance panel"
+      });
 
-      var smsInsert = await window.supabaseClient
-        .from("sms_logs")
-        .insert({
-          attendance_id: attendanceInsert.data.id,
-          student_id: student.id,
-          phone: student.parent_phone,
-          message_type: eventType,
-          message_body: messageBody,
-          status: "QUEUED"
-        });
-
-      if (smsInsert.error) {
-        throw smsInsert.error;
+      if (attendanceRpc.error) {
+        throw attendanceRpc.error;
       }
 
       showMessage(
@@ -228,6 +232,8 @@
     } catch (error) {
       if (error.code === "23505") {
         showMessage(student.full_name + " already has " + eventType + " marked for this date.", "error");
+      } else if (error.message && error.message.toLowerCase().indexOf("not authorized") !== -1) {
+        showMessage("Access denied. Please login with an authorized teacher account.", "error");
       } else {
         showMessage("Attendance save failed: " + (error.message || "Unknown error"), "error");
       }

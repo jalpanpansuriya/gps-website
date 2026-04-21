@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teacher login for Shri Swaminarayan Gurukul Public School attendance panel.">
+  <title>Teacher Login | Shri Swaminarayan Gurukul Public School</title>
+  <link rel="icon" href="images/GPS_Logo.gif" type="image/gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="images/GPS_Logo.gif" alt="Shri Swaminarayan Gurukul Public School" class="logo">
+      </a>
+      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="facilities.html" class="nav-link">Facilities</a></li>
+          <li><a href="index.html#mission-vision" class="nav-link">Mission & Vision</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="login.html" class="nav-link active">Teacher Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-hero-title">Teacher Login</h1>
+        <p class="page-hero-subtitle">Sign in to access the attendance panel</p>
+      </div>
+    </section>
+
+    <section class="section auth-section">
+      <div class="container auth-container">
+        <form id="login-form" class="auth-card">
+          <h2 class="auth-title">Sign In</h2>
+          <p class="auth-text">Use your teacher account credentials.</p>
+
+          <label for="email" class="auth-label">Email</label>
+          <input id="email" type="email" class="auth-input" required placeholder="teacher@school.edu">
+
+          <label for="password" class="auth-label">Password</label>
+          <input id="password" type="password" class="auth-input" required placeholder="••••••••">
+
+          <button type="submit" id="login-btn" class="btn btn-primary auth-btn">Sign In</button>
+          <p id="login-message" class="auth-message" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

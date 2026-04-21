@@ -1233,6 +1233,35 @@ a:hover {
   color: #1d4ed8;
 }
 
+.attendance-auth-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background: #fff8f3;
+  border: 1px solid #ffe5d1;
+}
+
+.attendance-user {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.attendance-logout-btn {
+  background: #5c5c5c;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.9rem;
+}
+
+.attendance-logout-btn:hover {
+  background: #474747;
+}
+
 .attendance-toolbar {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -1352,6 +1381,69 @@ a:hover {
   cursor: not-allowed;
 }
 
+.auth-section {
+  background: var(--color-light);
+}
+
+.auth-container {
+  max-width: 460px;
+}
+
+.auth-card {
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.auth-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  color: var(--color-dark);
+}
+
+.auth-text {
+  margin: 0 0 1rem;
+  color: var(--color-text-muted);
+}
+
+.auth-label {
+  display: block;
+  margin: 0.75rem 0 0.35rem;
+  font-weight: 600;
+}
+
+.auth-input {
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: var(--radius);
+  padding: 0.68rem 0.75rem;
+  font: inherit;
+}
+
+.auth-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.auth-message {
+  min-height: 1.3rem;
+  margin: 0.85rem 0 0;
+  font-weight: 600;
+}
+
+.auth-message-success {
+  color: #0b7a28;
+}
+
+.auth-message-error {
+  color: #b42318;
+}
+
+.auth-message-info {
+  color: #1d4ed8;
+}
+
 @media (max-width: 767px) {
   .attendance-panel {
     padding-top: 2.2rem;
@@ -1360,6 +1452,11 @@ a:hover {
   .attendance-toolbar {
     grid-template-columns: 1fr;
     gap: 0.75rem;
+  }
+
+  .attendance-auth-bar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .attendance-toolbar .btn {
