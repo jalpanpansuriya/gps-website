@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Record fee payment (admin) — Shri Swaminarayan Gurukul Public School.">
+  <title>Record payment (Admin) | Shri Swaminarayan Gurukul Public School</title>
+  <link rel="icon" href="images/GPS_Logo.gif" type="image/gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="images/GPS_Logo.gif" alt="Shri Swaminarayan Gurukul Public School" class="logo">
+      </a>
+      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="facilities.html" class="nav-link">Facilities</a></li>
+          <li><a href="index.html#mission-vision" class="nav-link">Mission & Vision</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="attendance.html" class="nav-link">Attendance</a></li>
+          <li><a href="fee-structure.html" class="nav-link">Fee structure</a></li>
+          <li><a href="record-payment.html" class="nav-link active">Record payment</a></li>
+          <li><a href="payment-history.html" class="nav-link">Payment history</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-hero-title">Record fee payment</h1>
+        <p class="page-hero-subtitle">Log cash / UPI / bank and other in-person payments. Admin accounts only.</p>
+      </div>
+    </section>
+
+    <div id="rp-denied" class="is-hidden">
+      <section class="section auth-section">
+        <div class="container auth-container">
+          <div class="auth-card">
+            <h2 class="auth-title">Access restricted</h2>
+            <p class="auth-text">This page is for office staff with the <strong>admin</strong> role.</p>
+            <p class="auth-text fee-denied-nav"><a href="index.html">Return to home</a> · <a href="fee-structure.html">Fee structure</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="section attendance-panel is-hidden" id="rp-app">
+      <div class="container">
+        <div class="attendance-auth-bar">
+          <p id="rp-user" class="attendance-user">Signed in</p>
+          <button id="logout-btn" class="btn attendance-logout-btn" type="button">Logout</button>
+        </div>
+
+        <div id="rp-message" class="attendance-message" role="status" aria-live="polite"></div>
+
+        <p class="fee-help-text"><strong>Class</strong> is required. Use <strong>section</strong> or <strong>part of the name</strong> to narrow. Leave <strong>roll</strong> and <strong>name</strong> empty to see the full class list (or section list) and pick a student. Values must match your student data. <a href="payment-history.html" class="ph-inline-link">View payment history &amp; reprint receipts</a></p>
+
+        <div class="attendance-toolbar rp-toolbar rp-search-row-1">
+          <div class="attendance-field">
+            <label for="rp-find-class">Class <span class="label-req">*</span></label>
+            <input id="rp-find-class" type="text" placeholder="e.g. 5" autocomplete="off">
+          </div>
+          <div class="attendance-field">
+            <label for="rp-find-section">Section (optional)</label>
+            <input id="rp-find-section" type="text" placeholder="e.g. A — leave empty for all" autocomplete="off">
+          </div>
+          <div class="attendance-field">
+            <label for="rp-find-name">Name contains (optional)</label>
+            <input id="rp-find-name" type="text" placeholder="e.g. Diya — filters list" autocomplete="off">
+          </div>
+        </div>
+        <div class="attendance-toolbar rp-toolbar rp-search-row-2">
+          <div class="attendance-field">
+            <label for="rp-find-roll">Roll no. (optional)</label>
+            <input id="rp-find-roll" type="text" inputmode="text" autocomplete="off" placeholder="e.g. 12 — exact match">
+          </div>
+          <div class="attendance-field">
+            <label class="is-invisible" for="find-student-btn">Search</label>
+            <button id="find-student-btn" class="btn btn-primary" type="button">Search / list students</button>
+          </div>
+        </div>
+
+        <div id="rp-results" class="rp-results is-hidden" aria-label="Search results">
+          <p class="attendance-meta" id="rp-results-meta"></p>
+          <div class="attendance-table-wrap rp-results-wrap">
+            <table class="attendance-table rp-results-table" aria-label="Students matching your search">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Class</th>
+                  <th>Sec</th>
+                  <th>Roll</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="rp-results-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="rp-student-picked" class="rp-student-picked is-hidden">
+          <div class="rp-picked-row">
+            <p id="rp-student-name" class="rp-student-name"></p>
+            <button type="button" class="btn attendance-logout-btn" id="rp-change-student">Change student</button>
+          </div>
+        </div>
+
+        <form id="record-payment-form" class="is-hidden" novalidate>
+          <h2 class="rp-form-heading">Payment details</h2>
+          <div class="rp-form-grid">
+            <div class="attendance-field">
+              <label for="rp-year">Academic year</label>
+              <select id="rp-year" class="fee-select" required aria-label="Academic year">
+                <option value="">Loading years…</option>
+              </select>
+            </div>
+            <div class="attendance-field">
+              <label for="rp-amount">Amount (₹)</label>
+              <input id="rp-amount" type="number" min="0.01" step="0.01" required placeholder="0.00">
+            </div>
+            <div class="attendance-field">
+              <label for="rp-date">Payment date</label>
+              <input id="rp-date" type="date" required>
+            </div>
+            <div class="attendance-field">
+              <label for="rp-mode">Mode</label>
+              <select id="rp-mode" class="fee-select" required>
+                <option value="">Select mode</option>
+                <option value="CASH">Cash</option>
+                <option value="UPI">UPI</option>
+                <option value="BANK_TRANSFER">Bank transfer / NEFT / RTGS</option>
+                <option value="CHEQUE">Cheque</option>
+                <option value="CARD">Card</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+            <div class="attendance-field rp-field-wide">
+              <label for="rp-reference">Reference (UPI / cheque / ref no.)</label>
+              <input id="rp-reference" type="text" placeholder="Optional" autocomplete="off">
+            </div>
+            <div class="attendance-field rp-field-wide">
+              <label for="rp-note">Note (office use)</label>
+              <input id="rp-note" type="text" placeholder="Optional" autocomplete="off">
+            </div>
+          </div>
+          <p class="rp-submit-row">
+            <button type="submit" class="btn btn-primary">Record payment &amp; get receipt</button>
+          </p>
+        </form>
+
+        <div id="rp-success" class="rp-success is-hidden" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="footer-school-name">Shri Swaminarayan Gurukul Public School</p>
+          <p class="footer-address">Plot No. 508, Sardar Park, GIDC, Ankleshwar, Bharuch, Gujarat.</p>
+          <p class="footer-managed">Managed by Shree Swaminarayan Sevaniketan</p>
+        </div>
+        <div class="footer-links">
+          <p class="footer-heading">Quick Links</p>
+          <ul class="footer-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="attendance.html">Attendance</a></li>
+            <li><a href="fee-structure.html">Fee structure</a></li>
+            <li><a href="record-payment.html">Record payment</a></li>
+            <li><a href="payment-history.html">Payment history</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Shri Swaminarayan Gurukul Public School. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/record-payment.js"></script>
+</body>
+</html>

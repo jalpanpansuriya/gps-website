@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fee receipt | Shri Swaminarayan Gurukul Public School</title>
+  <link rel="icon" href="images/GPS_Logo.gif" type="image/gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="receipt-page-body">
+  <header class="header no-print">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="images/GPS_Logo.gif" alt="Shri Swaminarayan Gurukul Public School" class="logo">
+      </a>
+      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="record-payment.html" class="nav-link">Record payment</a></li>
+          <li><a href="payment-history.html" class="nav-link">Payment history</a></li>
+          <li><a href="fee-structure.html" class="nav-link">Fee structure</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div id="rc-denied" class="is-hidden">
+      <section class="section auth-section no-print">
+        <div class="container auth-container">
+          <div class="auth-card">
+            <h2 class="auth-title">Cannot show receipt</h2>
+            <p class="auth-text" id="receipt-denied-reason">You must be signed in as an <strong>admin</strong>, or the link is invalid.</p>
+            <p class="auth-text fee-denied-nav"><a href="login.html">Sign in</a> · <a href="index.html">Home</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="section receipt-section is-hidden" id="rc-app" style="background: var(--color-light, #f8f6f2);">
+      <div class="container">
+        <div class="receipt-topbar no-print">
+          <p id="rc-user" class="attendance-user">Signed in</p>
+          <div class="receipt-topbar-btns">
+            <a href="record-payment.html" class="btn" id="receipt-back-btn">New payment</a>
+            <a href="payment-history.html" class="btn" id="receipt-history-btn">Payment history</a>
+            <button type="button" class="btn btn-primary" id="receipt-print-btn">Print / Save as PDF</button>
+            <button id="logout-btn" class="btn attendance-logout-btn" type="button">Logout</button>
+          </div>
+        </div>
+        <div id="rc-message" class="attendance-message no-print" role="status" aria-live="polite"></div>
+        <div id="receipt-content" class="receipt-sheet" aria-label="Fee receipt details"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer no-print">
+    <div class="container">
+      <p class="footer-bottom" style="margin:0; padding: 0.5rem 0;">&copy; <span id="year"></span> Shri Swaminarayan Gurukul Public School</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/receipt.js"></script>
+</body>
+</html>

@@ -1555,3 +1555,367 @@ a:hover {
     font-size: 0.86rem;
   }
 }
+
+/* ----- Fee structure (admin) ----- */
+.is-hidden {
+  display: none !important;
+}
+
+.fee-help-text {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+  max-width: 52rem;
+}
+
+.attendance-field select.fee-select,
+.fee-select {
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: var(--radius);
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  background: var(--color-white);
+  min-height: 42px;
+}
+
+.fee-amounts-wrap {
+  margin-bottom: 1rem;
+}
+
+.fee-amounts-table th:nth-child(2),
+.fee-amounts-table td:nth-child(2) {
+  width: 7rem;
+}
+
+.fee-code-cell {
+  font-family: ui-monospace, monospace;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.fee-amount-input {
+  width: 100%;
+  max-width: 12rem;
+  border: 1px solid #d0d5dd;
+  border-radius: var(--radius);
+  padding: 0.5rem 0.65rem;
+  font: inherit;
+  text-align: right;
+}
+
+.fee-optional-pill {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #5c4d3d;
+  background: #f3e8dc;
+  border-radius: 4px;
+}
+
+.fee-save-row {
+  margin: 0 0 1.5rem;
+}
+
+.fee-denied-nav a {
+  color: var(--color-primary, #1d4ed8);
+  font-weight: 600;
+  text-decoration: none;
+}
+.fee-denied-nav a:hover {
+  text-decoration: underline;
+}
+
+/* ----- Record payment + receipt ----- */
+.rp-toolbar {
+  margin-bottom: 0.5rem;
+}
+
+.rp-search-row-2 {
+  margin-bottom: 0.75rem;
+}
+
+.label-req {
+  color: #b42318;
+  font-weight: 700;
+}
+
+.rp-results {
+  margin-bottom: 1.25rem;
+}
+
+.rp-results-wrap {
+  max-height: min(22rem, 55vh);
+  overflow: auto;
+}
+
+.rp-results-table .rp-select-cell {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.rp-select-btn {
+  font-size: 0.88rem;
+  padding: 0.45rem 0.75rem;
+}
+
+.rp-picked-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.rp-picked-row .rp-student-name {
+  flex: 1;
+  min-width: 12rem;
+  margin: 0;
+}
+
+.rp-student-picked {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background: #e8f5e9;
+  border: 1px solid #c3e6cb;
+}
+
+.rp-student-name {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.rp-form-heading {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+}
+
+.rp-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.9rem 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.rp-field-wide {
+  grid-column: 1 / -1;
+  max-width: 36rem;
+}
+
+.rp-submit-row {
+  margin: 0.5rem 0 1.5rem;
+}
+
+.rp-success {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #e8f5e9;
+  border: 1px solid #c3e6cb;
+  border-radius: var(--radius);
+}
+
+.rp-success-p {
+  margin: 0 0 0.5rem;
+}
+
+.receipt-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.receipt-topbar-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.receipt-sheet {
+  max-width: 32rem;
+  margin: 0 auto 2rem;
+  padding: 1.5rem 1.75rem;
+  background: #fff;
+  border: 1px solid #e2e0da;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.receipt-school {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.receipt-address {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+}
+
+.receipt-title {
+  margin: 0.75rem 0 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.receipt-dl {
+  margin: 0 0 0.5rem;
+}
+
+.receipt-dl-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0.35rem 0;
+  font-size: 0.95rem;
+}
+
+.receipt-dl-row dt {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.receipt-dl-row dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 600;
+}
+
+.receipt-hr {
+  border: 0;
+  border-top: 1px solid #e2e0da;
+  margin: 0.75rem 0;
+}
+
+.receipt-student-name {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.receipt-footer {
+  margin: 1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* ----- Payment history (admin) ----- */
+.ph-inline-link {
+  font-weight: 600;
+  color: var(--color-primary, #1d4ed8);
+  text-decoration: none;
+}
+.ph-inline-link:hover {
+  text-decoration: underline;
+}
+
+.ph-filters {
+  margin-bottom: 0.5rem;
+}
+
+.ph-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1.25rem;
+  align-items: end;
+  margin-bottom: 0.75rem;
+}
+
+.ph-field-wide {
+  flex: 1 1 12rem;
+  min-width: 10rem;
+  max-width: 22rem;
+}
+
+.ph-apply {
+  flex: 0 0 auto;
+  align-self: end;
+}
+
+.ph-date-input {
+  min-height: 42px;
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: var(--radius);
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+}
+
+.ph-table-wrap {
+  margin-top: 0.5rem;
+}
+
+.ph-payments-table {
+  font-size: 0.92rem;
+}
+
+.ph-payments-table th,
+.ph-payments-table td {
+  font-size: inherit;
+  vertical-align: top;
+}
+
+.ph-actions {
+  white-space: nowrap;
+}
+
+.ph-receipt-a {
+  font-size: 0.86rem;
+  padding: 0.45rem 0.6rem;
+}
+
+.ph-muted {
+  color: #9a9a9a;
+  font-weight: 400;
+  padding: 0 0.1rem;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .receipt-page-body {
+    background: #fff;
+  }
+
+  .receipt-sheet {
+    max-width: none;
+    margin: 0;
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+  }
+}
+
+.is-invisible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

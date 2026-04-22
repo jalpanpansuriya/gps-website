@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Teacher attendance panel for Shri Swaminarayan Gurukul Public School.">
-  <title>Attendance Panel | Shri Swaminarayan Gurukul Public School</title>
+  <meta name="description" content="Configure per-class school fees (admin) — Shri Swaminarayan Gurukul Public School.">
+  <title>Fee structure (Admin) | Shri Swaminarayan Gurukul Public School</title>
   <link rel="icon" href="images/GPS_Logo.gif" type="image/gif">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,8 +29,8 @@
           <li><a href="facilities.html" class="nav-link">Facilities</a></li>
           <li><a href="index.html#mission-vision" class="nav-link">Mission & Vision</a></li>
           <li><a href="contact.html" class="nav-link">Contact</a></li>
-          <li><a href="attendance.html" class="nav-link active">Attendance</a></li>
-          <li><a href="fee-structure.html" class="nav-link">Fee structure</a></li>
+          <li><a href="attendance.html" class="nav-link">Attendance</a></li>
+          <li><a href="fee-structure.html" class="nav-link active">Fee structure</a></li>
           <li><a href="record-payment.html" class="nav-link">Record payment</a></li>
           <li><a href="payment-history.html" class="nav-link">Payment history</a></li>
         </ul>
@@ -41,58 +41,77 @@
   <main>
     <section class="page-hero">
       <div class="container">
-        <h1 class="page-hero-title">Attendance Panel</h1>
-        <p class="page-hero-subtitle">Mark student IN/OUT attendance and queue parent SMS updates</p>
+        <h1 class="page-hero-title">Fee structure (office)</h1>
+        <p class="page-hero-subtitle">Set per-class amounts for each fee component. Admin accounts only.</p>
       </div>
     </section>
 
-    <section class="section attendance-panel">
+    <div id="fee-denied" class="is-hidden">
+      <section class="section auth-section">
+        <div class="container auth-container">
+          <div class="auth-card">
+            <h2 class="auth-title">Access restricted</h2>
+            <p class="auth-text">This page is for school office staff with the <strong>admin</strong> role. If you need access, contact your school administrator.</p>
+            <p class="auth-text fee-denied-nav"><a href="index.html">Return to home</a> · <a href="attendance.html">Attendance panel</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="section attendance-panel is-hidden" id="fee-app">
       <div class="container">
         <div class="attendance-auth-bar">
-          <p id="attendance-user" class="attendance-user">Checking session...</p>
+          <p id="fee-user" class="attendance-user">Signed in</p>
           <button id="logout-btn" class="btn attendance-logout-btn" type="button">Logout</button>
         </div>
 
-        <div id="attendance-message" class="attendance-message" role="status" aria-live="polite"></div>
+        <div id="fee-message" class="attendance-message" role="status" aria-live="polite"></div>
+
+        <p class="fee-help-text">Use the <strong>same class (and section) text</strong> as in the student list. Leave section empty to set fees for <strong>all sections</strong> in that class; enter a section (e.g. A) to override for that section only.</p>
 
         <div class="attendance-toolbar">
           <div class="attendance-field">
-            <label for="class-filter">Class</label>
-            <input id="class-filter" type="text" placeholder="e.g. 5">
+            <label for="fee-year">Academic year</label>
+            <select id="fee-year" class="fee-select" aria-label="Academic year">
+              <option value="">Loading years…</option>
+            </select>
           </div>
           <div class="attendance-field">
-            <label for="section-filter">Section</label>
-            <input id="section-filter" type="text" placeholder="e.g. A">
+            <label for="fee-class">Class</label>
+            <input id="fee-class" type="text" placeholder="e.g. 5" autocomplete="off">
           </div>
-          <div class="attendance-field attendance-date-field">
-            <label for="attendance-date">Date</label>
-            <input id="attendance-date" type="date">
+          <div class="attendance-field">
+            <label for="fee-section">Section (optional)</label>
+            <input id="fee-section" type="text" placeholder="e.g. A (or leave empty)" autocomplete="off">
           </div>
-          <button id="load-students-btn" class="btn btn-primary" type="button">Load Students</button>
+          <div class="attendance-field">
+            <label class="is-invisible" for="load-fees-btn">Load</label>
+            <button id="load-fees-btn" class="btn btn-primary" type="button">Load</button>
+          </div>
         </div>
 
-        <p id="attendance-meta" class="attendance-meta"></p>
+        <p id="fee-meta" class="attendance-meta"></p>
 
-        <div class="attendance-table-wrap">
-          <table class="attendance-table">
+        <div class="fee-amounts-wrap">
+          <table class="attendance-table fee-amounts-table" aria-label="Fee amounts in Indian rupees">
             <thead>
               <tr>
-                <th>Roll No</th>
-                <th>Student</th>
-                <th>Class</th>
-                <th>Section</th>
-                <th>Parent Phone</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th>Component</th>
+                <th>Code</th>
+                <th>Amount (₹)</th>
               </tr>
             </thead>
-            <tbody id="attendance-table-body">
+            <tbody id="fee-amounts-body">
               <tr>
-                <td colspan="7" class="attendance-empty">Load students to start marking attendance.</td>
+                <td colspan="3" class="attendance-empty">Loading components…</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <p class="fee-save-row">
+          <button id="save-fees-btn" class="btn btn-primary" type="button">Save for this class</button>
+        </p>
       </div>
     </section>
   </main>
@@ -128,6 +147,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabaseClient.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/attendance.js"></script>
+  <script src="js/fee-structure.js"></script>
 </body>
 </html>
