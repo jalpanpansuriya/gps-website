@@ -35,16 +35,47 @@
     }
   }
 
-  function greetingFromEmail(email) {
-    if (!email || email.indexOf("@") < 0) {
-      return "Welcome";
+  function capitalizeWord(word) {
+    if (!word) {
+      return "";
+    }
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  }
+
+  /**
+   * Prefer user_metadata (set in Supabase or via updateUser) so "Welcome" uses real names,
+   * not the email local part. Order: first_name → first word of name/full_name/display_name → email hint.
+   */
+  function firstNameForWelcome(user) {
+    if (!user) {
+      return "";
+    }
+    var m = user.user_metadata || {};
+    if (m.first_name && String(m.first_name).trim()) {
+      return String(m.first_name).trim();
+    }
+    var multi = m.name || m.full_name || m.display_name;
+    if (multi && String(multi).trim()) {
+      var w = String(multi).trim().split(/\s+/)[0];
+      if (w) {
+        return w;
+      }
+    }
+    var email = user.email || "";
+    if (email.indexOf("@") < 0) {
+      return "";
     }
     var local = email.split("@")[0] || "";
-    var first = local.split(/[._-]/)[0] || local;
-    if (!first) {
+    var fromEmail = local.split(/[._-]/)[0] || local;
+    return fromEmail;
+  }
+
+  function greetingForUser(user) {
+    var raw = firstNameForWelcome(user);
+    if (!raw) {
       return "Welcome";
     }
-    return "Welcome, " + first.charAt(0).toUpperCase() + first.slice(1).toLowerCase();
+    return "Welcome, " + capitalizeWord(raw);
   }
 
   function bindLogout() {
@@ -63,9 +94,10 @@
       window.location.href = "login.html?redirect=staff-portal.html";
       return;
     }
-    var email = session.user && session.user.email ? session.user.email : "";
+    var user = session.user;
+    var email = user && user.email ? user.email : "";
     if (welcomeEl) {
-      welcomeEl.textContent = greetingFromEmail(email);
+      welcomeEl.textContent = greetingForUser(user);
     }
     if (metaEl) {
       metaEl.textContent = formatIndiaDateTime();
