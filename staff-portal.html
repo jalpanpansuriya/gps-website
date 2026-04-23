@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Contact Shri Swaminarayan Gurukul Public School — address, map, office timings and how to reach us in Ankleshwar.">
-  <title>Contact Us | Shri Swaminarayan Gurukul Public School</title>
+  <meta name="description" content="Staff dashboard — home for teachers and office, Shri Swaminarayan Gurukul Public School.">
+  <title>Staff dashboard | Shri Swaminarayan Gurukul Public School</title>
   <link rel="icon" href="images/GPS_Logo.gif" type="image/gif">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header class="header">
+  <header class="header header--staff">
     <div class="header-inner">
-      <a href="index.html" class="logo-link">
+      <a href="index.html" class="logo-link" title="Back to public school website" aria-label="Back to public school website">
         <img src="images/GPS_Logo.gif" alt="Shri Swaminarayan Gurukul Public School" class="logo">
       </a>
       <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
@@ -22,70 +22,61 @@
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
       </button>
-      <nav class="nav">
+      <nav class="nav" aria-label="Staff tools">
         <ul class="nav-list">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About Us</a></li>
-          <li><a href="facilities.html" class="nav-link">Facilities</a></li>
-          <li><a href="contact.html" class="nav-link active">Contact</a></li>
-          <li><a href="login.html?redirect=staff-portal.html" class="nav-link nav-staff">Staff login</a></li>
+          <li><a href="staff-portal.html" class="nav-link active">Dashboard</a></li>
+          <li><a href="attendance.html" class="nav-link">Attendance</a></li>
+          <li><a href="fee-structure.html" class="nav-link">Fee structure</a></li>
+          <li><a href="record-payment.html" class="nav-link">Record payment</a></li>
+          <li><a href="payment-history.html" class="nav-link">Payment history</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="page-hero">
+    <section class="page-hero page-hero--dashboard">
       <div class="container">
-        <h1 class="page-hero-title">Contact Us</h1>
-        <p class="page-hero-subtitle">Address, map, office timings and how to reach us</p>
+        <h1 class="page-hero-title">Staff dashboard</h1>
+        <p class="page-hero-subtitle">Private area for staff and office. The <a class="page-hero-inline" href="index.html">public school website</a> is for parents and students.</p>
       </div>
     </section>
 
-    <section class="section contact-page">
-      <div class="container">
-        <div class="contact-page-grid">
-          <div class="contact-details-card">
-            <h2 class="contact-card-title">Address &amp; Details</h2>
-            <p class="contact-name"><strong>Shree Swaminarayan Gurukul Public School</strong></p>
-            <p>Affiliation No.: 430222<br>School Code: 10272</p>
-            <p class="contact-managed">Managed by Shree Swaminarayan Sevaniketan</p>
-            <address class="contact-address-block">
-              Plot No. 508, Sardar Park, GIDC,<br>
-              Ankleshwar, Bharuch District,<br>
-              Gujarat, India.
-            </address>
-            <p class="contact-extra">
-              <strong>Phone:</strong> <a href="tel:+9102646224433">+91 02646-224433</a><br>
-              <strong>Fax:</strong> +91 02646-224433<br>
-              <strong>Email:</strong> <a href="mailto:gpsankleshwar@gmail.com">gpsankleshwar@gmail.com</a>
-            </p>
+    <section class="section staff-portal-section">
+      <div class="container staff-dash">
+        <div class="staff-dash-welcome">
+          <div class="staff-dash-welcome-main">
+            <h2 class="staff-dash-welcome-title" id="portal-welcome">Welcome</h2>
+            <p class="staff-dash-welcome-meta" id="portal-meta"></p>
+            <p id="portal-user" class="staff-dash-welcome-id">Checking session…</p>
           </div>
-
-          <div class="contact-timings-card">
-            <h2 class="contact-card-title">Office Timings</h2>
-            <dl class="timings-list">
-              <dt>Operation hours</dt>
-              <dd>7:00 AM – 2:00 PM, Monday – Friday</dd>
-            </dl>
+          <div class="staff-dash-welcome-actions">
+            <button id="portal-logout-btn" class="btn attendance-logout-btn" type="button">Logout</button>
           </div>
         </div>
 
-        <div class="contact-map-section">
-          <h2 class="section-title">Location &amp; Map</h2>
-          <div class="map-wrapper">
-            <iframe
-              class="contact-map"
-              src="https://www.google.com/maps?q=21.6077415,73.0216893&z=17&output=embed"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Shri Swaminarayan Gurukul Public School location on Google Maps">
-            </iframe>
-          </div>
-          <p class="map-link-p">
-            <a href="https://www.google.com/maps/@21.6077415,73.0216893,159m/data=!3m1!1e3?entry=ttu" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
-          </p>
+        <div class="staff-dash-guide">
+          <h3 class="staff-dash-guide-title">How to use this area</h3>
+          <p class="staff-dash-guide-text">Open <strong>Attendance</strong>, <strong>Fee structure</strong>, <strong>Record payment</strong>, and <strong>Payment history</strong> from the <strong>menu above</strong>—this page is your home base, not a second copy of those links. To visit the public site (Home, About, Facilities, Contact), use the <strong>school logo</strong> at the top left.</p>
+        </div>
+
+        <div class="staff-dash-future" aria-label="Planned dashboard areas">
+          <h3 class="staff-dash-future-title">Planned for this page</h3>
+          <p class="staff-dash-future-lead">We will add more here over time. Reserved slots so the layout is ready for real widgets.</p>
+          <ul class="staff-dash-placeholders">
+            <li class="staff-dash-placeholder">
+              <span class="staff-dash-placeholder-label">At-a-glance</span>
+              <span class="staff-dash-placeholder-hint">e.g. today’s counts, last sync</span>
+            </li>
+            <li class="staff-dash-placeholder">
+              <span class="staff-dash-placeholder-label">Notices</span>
+              <span class="staff-dash-placeholder-hint">for staff and office</span>
+            </li>
+            <li class="staff-dash-placeholder">
+              <span class="staff-dash-placeholder-label">Reports &amp; exports</span>
+              <span class="staff-dash-placeholder-hint">when we wire them in</span>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -100,14 +91,15 @@
           <p class="footer-managed">Managed by Shree Swaminarayan Sevaniketan</p>
         </div>
         <div class="footer-links">
-          <p class="footer-heading">Quick Links</p>
+          <p class="footer-heading">Staff area</p>
           <ul class="footer-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="facilities.html">Facilities</a></li>
-            <li><a href="index.html#mission-vision">Mission &amp; Vision</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="login.html?redirect=staff-portal.html">Staff login</a></li>
+            <li><a href="index.html">School website</a></li>
+            <li><a href="staff-portal.html">Dashboard</a></li>
+            <li><a href="attendance.html">Attendance</a></li>
+            <li><a href="fee-structure.html">Fee structure</a></li>
+            <li><a href="record-payment.html">Record payment</a></li>
+            <li><a href="payment-history.html">Payment history</a></li>
+            <li><a href="contact.html">Office (contact)</a></li>
           </ul>
         </div>
         <div class="footer-social">
@@ -131,6 +123,9 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabaseClient.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/staff-portal.js"></script>
 </body>
 </html>

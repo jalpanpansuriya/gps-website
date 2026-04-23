@@ -158,6 +158,138 @@ a:hover {
   color: var(--color-white);
 }
 
+/* Discrete entry point for staff tools (public site header only) */
+.nav-link.nav-staff {
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.nav-link.nav-staff:hover,
+.nav-link.nav-staff.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+/* Staff-only pages: distinct from public marketing header */
+.header--staff {
+  border-top: 3px solid var(--color-primary);
+}
+
+/* Staff dashboard (landing — tools live in header nav only) */
+.staff-portal-section {
+  background: var(--color-light, #f8f6f2);
+}
+.page-hero--dashboard {
+  padding: 2.25rem 0 2.5rem;
+}
+.staff-dash {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 52rem;
+}
+.staff-dash-welcome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.35rem 1.5rem;
+  background: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.staff-dash-welcome-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.staff-dash-welcome-meta {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-muted, #5c5c5c);
+}
+.staff-dash-welcome-id {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+.staff-dash-welcome-actions {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.staff-dash-guide {
+  padding: 1.25rem 1.35rem;
+  background: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--color-primary);
+}
+.staff-dash-guide-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.staff-dash-guide-text {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+.staff-dash-future {
+  padding: 0;
+}
+.staff-dash-future-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.staff-dash-future-lead {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--color-muted, #5c5c5c);
+}
+.staff-dash-placeholders {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .staff-dash-placeholders {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.staff-dash-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 1rem 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px dashed rgba(0, 0, 0, 0.14);
+  border-radius: var(--radius);
+  min-height: 4.5rem;
+}
+.staff-dash-placeholder-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-muted, #5c5c5c);
+}
+.staff-dash-placeholder-hint {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgba(92, 92, 92, 0.85);
+  font-style: italic;
+}
+
 /* ----- Hero ----- */
 .hero {
   position: relative;
@@ -346,6 +478,17 @@ a:hover {
   margin: 0;
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.85);
+}
+.page-hero-subtitle a,
+.page-hero-inline {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.page-hero-subtitle a:hover,
+.page-hero-inline:hover {
+  color: #ffb46b;
 }
 
 /* ----- About page: Principal ----- */

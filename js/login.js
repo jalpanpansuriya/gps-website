@@ -6,7 +6,7 @@
   var passwordInput = document.getElementById("password");
   var loginBtn = document.getElementById("login-btn");
   var messageEl = document.getElementById("login-message");
-  var redirectTarget = new URLSearchParams(window.location.search).get("redirect") || "attendance.html";
+  var redirectTarget = new URLSearchParams(window.location.search).get("redirect") || "staff-portal.html";
 
   if (!window.supabaseClient) {
     messageEl.textContent = "Supabase is not configured.";
