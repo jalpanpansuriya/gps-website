@@ -83,6 +83,7 @@
     }
 
     await populateYearSelect();
+    await applyDeepLinkFromQuery();
     if (el.findBtn) {
       el.findBtn.addEventListener("click", findStudents);
     }
@@ -147,6 +148,69 @@
     } else if (rows.length === 1) {
       el.year.value = rows[0].id;
     }
+  }
+
+  function optionValueExists(selectEl, value) {
+    if (!selectEl || value == null || String(value) === "") {
+      return false;
+    }
+    var v = String(value);
+    for (var i = 0; i < selectEl.options.length; i++) {
+      if (selectEl.options[i].value === v) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  async function applyDeepLinkFromQuery() {
+    var params = new URLSearchParams(window.location.search);
+    var sid =
+      params.get("student_id") ||
+      params.get("student");
+    var yid =
+      params.get("year_id") ||
+      params.get("year");
+    if (yid && el.year && optionValueExists(el.year, yid)) {
+      el.year.value = yid;
+    }
+    if (!sid) {
+      return;
+    }
+    var stRes = await window.supabaseClient
+      .from("students")
+      .select("id, full_name, class_name, section, roll_no")
+      .eq("id", sid)
+      .eq("is_active", true)
+      .maybeSingle();
+    if (stRes.error || !stRes.data) {
+      showMessage(
+        "Student from link was not found or is inactive. Use Search below.",
+        "info"
+      );
+      return;
+    }
+    var stu = stRes.data;
+    if (el.findClass) {
+      el.findClass.value =
+        stu.class_name != null ? String(stu.class_name) : "";
+    }
+    if (el.findSection) {
+      el.findSection.value =
+        stu.section != null ? String(stu.section) : "";
+    }
+    if (el.findName) {
+      el.findName.value = "";
+    }
+    if (el.findRoll) {
+      el.findRoll.value = "";
+    }
+    clearResultsUI();
+    if (el.success) {
+      el.success.classList.add("is-hidden");
+      el.success.innerHTML = "";
+    }
+    selectStudent(stu);
   }
 
   function showMessage(text, type) {

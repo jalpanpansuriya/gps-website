@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Outstanding fee dues (admin) — Shri Swaminarayan Gurukul Public School.">
+  <title>Outstanding fees (Admin) | Shri Swaminarayan Gurukul Public School</title>
+  <link rel="icon" href="images/GPS_Logo.gif" type="image/gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header header--staff">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link" title="Back to public school website" aria-label="Back to public school website">
+        <img src="images/GPS_Logo.gif" alt="Shri Swaminarayan Gurukul Public School" class="logo">
+      </a>
+      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="nav" aria-label="Staff tools">
+        <ul class="nav-list">
+          <li><a href="staff-portal.html" class="nav-link">Dashboard</a></li>
+          <li><a href="attendance.html" class="nav-link">Attendance</a></li>
+          <li><a href="fee-structure.html" class="nav-link">Fee structure</a></li>
+          <li><a href="record-payment.html" class="nav-link">Record payment</a></li>
+          <li><a href="payment-history.html" class="nav-link">Payment history</a></li>
+          <li><a href="fee-defaulters.html" class="nav-link active">Outstanding</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-hero-title">Outstanding fees</h1>
+        <p class="page-hero-subtitle">Students where configured annual fees exceed payments for the selected academic year. Admin only.</p>
+      </div>
+    </section>
+
+    <div id="fd-denied" class="is-hidden">
+      <section class="section auth-section">
+        <div class="container auth-container">
+          <div class="auth-card">
+            <h2 class="auth-title">Access restricted</h2>
+            <p class="auth-text">This page is for office staff with the <strong>admin</strong> role.</p>
+            <p class="auth-text fee-denied-nav"><a href="staff-portal.html">Dashboard</a> · <a href="index.html">Home</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="section attendance-panel is-hidden" id="fd-app">
+      <div class="container">
+        <div class="attendance-auth-bar">
+          <p id="fd-user" class="attendance-user">Signed in</p>
+          <button id="logout-btn" class="btn attendance-logout-btn" type="button">Logout</button>
+        </div>
+
+        <div id="fd-message" class="attendance-message no-print" role="status" aria-live="polite"></div>
+
+        <p class="fee-help-text">
+          <strong>Expected</strong> is the sum of saved <strong>Fee structure</strong> lines for the student’s class (section-specific row if present, otherwise class-wide).
+          <strong>Paid</strong> is the total of recorded receipts for that academic year. Run <code>supabase/fee_tier1_v1.sql</code> if this page says the function is missing.
+        </p>
+
+        <div class="fd-filters ph-filters">
+          <div class="ph-filter-row">
+            <div class="attendance-field">
+              <label for="fd-year">Academic year</label>
+              <select id="fd-year" class="fee-select" aria-label="Academic year"></select>
+            </div>
+            <div class="attendance-field">
+              <label for="fd-class">Class (optional)</label>
+              <input id="fd-class" type="text" placeholder="e.g. 5" autocomplete="off">
+            </div>
+            <div class="attendance-field">
+              <label for="fd-min">Minimum due (₹)</label>
+              <input id="fd-min" type="number" min="0" step="1" value="1" autocomplete="off">
+            </div>
+            <div class="attendance-field ph-apply">
+              <label class="is-invisible" for="fd-load-btn">Load</label>
+              <button type="button" class="btn btn-primary" id="fd-load-btn">Load list</button>
+            </div>
+            <div class="attendance-field ph-apply">
+              <label class="is-invisible" for="fd-export-btn">Export CSV</label>
+              <button type="button" class="btn" id="fd-export-btn">Export CSV</button>
+            </div>
+          </div>
+        </div>
+
+        <p id="fd-meta" class="attendance-meta"></p>
+
+        <div class="staff-def-table-wrap fd-table-wrap">
+          <table class="staff-def-table fd-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Roll</th>
+                <th>Class</th>
+                <th class="staff-def-num">Expected</th>
+                <th class="staff-def-num">Paid</th>
+                <th class="staff-def-num">Due</th>
+                <th>Last payment</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="fd-table-body">
+              <tr>
+                <td colspan="8" class="fd-empty">Choose year and tap Load list.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Shri Swaminarayan Gurukul Public School. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/fee-defaulters.js"></script>
+</body>
+</html>

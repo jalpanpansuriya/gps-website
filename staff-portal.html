@@ -29,6 +29,7 @@
           <li><a href="fee-structure.html" class="nav-link">Fee structure</a></li>
           <li><a href="record-payment.html" class="nav-link">Record payment</a></li>
           <li><a href="payment-history.html" class="nav-link">Payment history</a></li>
+          <li><a href="fee-defaulters.html" class="nav-link">Outstanding</a></li>
         </ul>
       </nav>
     </div>
@@ -55,26 +56,79 @@
           </div>
         </div>
 
+        <div id="staff-fee-dash" class="staff-fee-dash is-hidden">
+          <div class="staff-dash-fee-head">
+            <h3 class="staff-dash-fee-title">Fee collection</h3>
+            <p id="staff-fee-year-label" class="staff-dash-fee-year"></p>
+          </div>
+          <p class="staff-dash-fee-note">Totals use the <strong>current academic year</strong> in your database. &quot;Today&quot; and &quot;This month&quot; follow <strong>India (IST)</strong> dates.</p>
+          <ul class="staff-stat-grid">
+            <li class="staff-stat-tile">
+              <span class="staff-stat-label">Collected today</span>
+              <strong id="staff-stat-today" class="staff-stat-value">—</strong>
+              <span id="staff-stat-today-n" class="staff-stat-meta"></span>
+            </li>
+            <li class="staff-stat-tile">
+              <span class="staff-stat-label">This month</span>
+              <strong id="staff-stat-month" class="staff-stat-value">—</strong>
+              <span id="staff-stat-month-n" class="staff-stat-meta"></span>
+            </li>
+            <li class="staff-stat-tile staff-stat-tile--primary">
+              <span class="staff-stat-label">This session (year)</span>
+              <strong id="staff-stat-session" class="staff-stat-value">—</strong>
+              <span id="staff-stat-session-n" class="staff-stat-meta"></span>
+            </li>
+          </ul>
+          <div id="staff-mode-wrap" class="staff-mode-wrap is-hidden">
+            <h4 class="staff-mode-title">Session totals by mode</h4>
+            <ul id="staff-mode-list" class="staff-mode-list"></ul>
+          </div>
+          <div class="staff-def-preview">
+            <div class="staff-def-preview-head">
+              <h4 class="staff-def-preview-title">Largest outstanding balances</h4>
+              <a href="fee-defaulters.html" class="staff-def-preview-link">View all →</a>
+            </div>
+            <p id="staff-def-preview-empty" class="staff-def-preview-empty is-hidden">No outstanding balances above ₹1, or fee structure not set for classes.</p>
+            <div id="staff-def-preview-table-wrap" class="staff-def-table-wrap">
+              <table class="staff-def-table">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Class</th>
+                    <th>Expected</th>
+                    <th>Paid</th>
+                    <th>Due</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="staff-def-preview-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <p id="staff-fee-non-admin" class="staff-dash-non-admin is-hidden">Signed-in fee summaries (collection and outstanding) require an <strong>admin</strong> role. Use the menu for your tools.</p>
+
         <div class="staff-dash-guide">
           <h3 class="staff-dash-guide-title">How to use this area</h3>
-          <p class="staff-dash-guide-text">Open <strong>Attendance</strong>, <strong>Fee structure</strong>, <strong>Record payment</strong>, and <strong>Payment history</strong> from the <strong>menu above</strong>—this page is your home base, not a second copy of those links. To visit the public site (Home, About, Facilities, Contact), use the <strong>school logo</strong> at the top left.</p>
+          <p class="staff-dash-guide-text">Open tools from the <strong>menu above</strong>. <strong>Fee structure</strong> sets per-class amounts (including transport, hostel, activity after you run the latest SQL). <strong>Record payment</strong> and <strong>Payment history</strong> handle receipts. <strong>Outstanding</strong> lists students whose configured fees exceed recorded payments for the year. Use the <strong>school logo</strong> to return to the public site.</p>
         </div>
 
         <div class="staff-dash-future" aria-label="Planned dashboard areas">
-          <h3 class="staff-dash-future-title">Planned for this page</h3>
-          <p class="staff-dash-future-lead">We will add more here over time. Reserved slots so the layout is ready for real widgets.</p>
+          <h3 class="staff-dash-future-title">Coming next</h3>
+          <p class="staff-dash-future-lead">Exports, reminders, and concessions will plug into this dashboard as you add them.</p>
           <ul class="staff-dash-placeholders">
             <li class="staff-dash-placeholder">
-              <span class="staff-dash-placeholder-label">At-a-glance</span>
-              <span class="staff-dash-placeholder-hint">e.g. today’s counts, last sync</span>
+              <span class="staff-dash-placeholder-label">CSV / PDF reports</span>
+              <span class="staff-dash-placeholder-hint">collection &amp; defaulters</span>
             </li>
             <li class="staff-dash-placeholder">
-              <span class="staff-dash-placeholder-label">Notices</span>
-              <span class="staff-dash-placeholder-hint">for staff and office</span>
+              <span class="staff-dash-placeholder-label">Fee reminders</span>
+              <span class="staff-dash-placeholder-hint">email or SMS</span>
             </li>
             <li class="staff-dash-placeholder">
-              <span class="staff-dash-placeholder-label">Reports &amp; exports</span>
-              <span class="staff-dash-placeholder-hint">when we wire them in</span>
+              <span class="staff-dash-placeholder-label">Concessions</span>
+              <span class="staff-dash-placeholder-hint">waivers &amp; scholarships</span>
             </li>
           </ul>
         </div>
@@ -99,6 +153,7 @@
             <li><a href="fee-structure.html">Fee structure</a></li>
             <li><a href="record-payment.html">Record payment</a></li>
             <li><a href="payment-history.html">Payment history</a></li>
+            <li><a href="fee-defaulters.html">Outstanding fees</a></li>
             <li><a href="contact.html">Office (contact)</a></li>
           </ul>
         </div>

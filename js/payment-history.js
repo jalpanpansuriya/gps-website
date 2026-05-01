@@ -2,6 +2,7 @@
   "use strict";
 
   var PAGE = 80;
+  var EXPORT_PAGE = 500;
   var offset = 0;
   var filterState = {
     dateFrom: "",
@@ -23,6 +24,7 @@
     receiptQ: document.getElementById("ph-receipt-q"),
     nameQ: document.getElementById("ph-name-q"),
     applyBtn: document.getElementById("ph-apply-btn"),
+    exportBtn: document.getElementById("ph-export-btn"),
     loadMoreBtn: document.getElementById("ph-load-more"),
     loadMoreWrap: document.getElementById("ph-load-more-wrap"),
     tbody: document.getElementById("ph-tbody"),
@@ -80,6 +82,9 @@
         loadPayments(false);
       });
     }
+    if (el.exportBtn) {
+      el.exportBtn.addEventListener("click", exportPaymentsCsv);
+    }
 
     await loadPayments(true);
   }
@@ -128,6 +133,196 @@
     filterState.nameQ = (el.nameQ && el.nameQ.value) ? el.nameQ.value.trim() : "";
   }
 
+  async function getStudentIdsForNameFilter() {
+    if (!filterState.nameQ) {
+      return { error: null, ids: null, noMatch: false };
+    }
+    var st = await window.supabaseClient
+      .from("students")
+      .select("id")
+      .eq("is_active", true)
+      .ilike("full_name", "%" + filterState.nameQ + "%")
+      .limit(300);
+    if (st.error) {
+      return { error: st.error.message, ids: null, noMatch: false };
+    }
+    var studentIds = (st.data || []).map(function (r) {
+      return r.id;
+    });
+    if (studentIds.length === 0) {
+      return { error: null, ids: null, noMatch: true };
+    }
+    if (studentIds.length > 200) {
+      studentIds = studentIds.slice(0, 200);
+    }
+    return { error: null, ids: studentIds, noMatch: false };
+  }
+
+  function csvEscape(val) {
+    var s = val == null ? "" : String(val);
+    if (/[",\r\n]/.test(s)) {
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  }
+
+  function downloadCsv(filename, csvText) {
+    var blob = new Blob(["\ufeff" + csvText], {
+      type: "text/csv;charset=utf-8"
+    });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function paymentRowCsvFields(row) {
+    var st = row.students;
+    if (Array.isArray(st) && st.length) {
+      st = st[0];
+    }
+    if (!st && row.student_id) {
+      st = {};
+    }
+    var name = st && st.full_name ? st.full_name : "—";
+    var cls = st && st.class_name != null ? String(st.class_name) : "—";
+    var sec =
+      st && st.section != null && String(st.section) !== ""
+        ? String(st.section)
+        : "—";
+    var roll = st && st.roll_no != null ? String(st.roll_no) : "—";
+    var y = row.academic_years;
+    if (Array.isArray(y) && y.length) {
+      y = y[0];
+    }
+    var ylabel = y && y.label ? y.label : "—";
+    var amt = row.amount_inr != null ? Number(row.amount_inr) : 0;
+    var pdate = row.payment_date
+      ? String(row.payment_date).slice(0, 10)
+      : "—";
+    return [
+      row.receipt_number != null ? String(row.receipt_number) : "",
+      ylabel,
+      pdate,
+      name,
+      cls,
+      sec,
+      roll,
+      String(amt),
+      modeLabel(row.payment_mode),
+      row.id != null ? String(row.id) : ""
+    ];
+  }
+
+  async function exportPaymentsCsv() {
+    readFilters();
+    if (!filterState.dateFrom || !filterState.dateTo) {
+      showMessage("Set both “From” and “To” payment dates to export.", "error");
+      return;
+    }
+    if (filterState.dateFrom > filterState.dateTo) {
+      showMessage("“From” date must be on or before “To” date.", "error");
+      return;
+    }
+
+    var sidRes = await getStudentIdsForNameFilter();
+    if (sidRes.error) {
+      showMessage("Student search failed: " + sidRes.error, "error");
+      return;
+    }
+    if (sidRes.noMatch) {
+      showMessage("No students match that name; nothing to export.", "error");
+      return;
+    }
+    var studentIds = sidRes.ids;
+
+    showMessage("Preparing CSV…", "info");
+    if (el.exportBtn) {
+      el.exportBtn.disabled = true;
+    }
+
+    try {
+      var head = [
+        "receipt_number",
+        "academic_year",
+        "payment_date",
+        "student_name",
+        "class_name",
+        "section",
+        "roll_no",
+        "amount_inr",
+        "payment_mode",
+        "payment_id"
+      ];
+      var lines = [head.map(csvEscape).join(",")];
+      var off = 0;
+      var total = 0;
+
+      for (;;) {
+        var q = window.supabaseClient
+          .from("fee_payments")
+          .select(
+            "id, receipt_number, payment_date, amount_inr, payment_mode, created_at, students ( full_name, class_name, section, roll_no ), academic_years ( label )"
+          )
+          .gte("payment_date", filterState.dateFrom)
+          .lte("payment_date", filterState.dateTo)
+          .order("payment_date", { ascending: false })
+          .order("created_at", { ascending: false });
+
+        if (filterState.yearId) {
+          q = q.eq("academic_year_id", filterState.yearId);
+        }
+        if (filterState.receiptQ) {
+          q = q.ilike("receipt_number", "%" + filterState.receiptQ + "%");
+        }
+        if (studentIds) {
+          q = q.in("student_id", studentIds);
+        }
+
+        q = q.range(off, off + EXPORT_PAGE - 1);
+        var res = await q;
+
+        if (res.error) {
+          showMessage("Export failed: " + res.error.message, "error");
+          return;
+        }
+
+        var rows = res.data || [];
+        rows.forEach(function (row) {
+          lines.push(paymentRowCsvFields(row).map(csvEscape).join(","));
+        });
+        total += rows.length;
+        if (rows.length < EXPORT_PAGE) {
+          break;
+        }
+        off += EXPORT_PAGE;
+      }
+
+      if (total === 0) {
+        showMessage("No payments in this range for export.", "info");
+        return;
+      }
+
+      var fn =
+        "payments_" +
+        filterState.dateFrom +
+        "_to_" +
+        filterState.dateTo +
+        ".csv";
+      downloadCsv(fn, lines.join("\r\n"));
+      showMessage("Downloaded CSV (" + total + " row(s)).", "success");
+    } finally {
+      if (el.exportBtn) {
+        el.exportBtn.disabled = false;
+      }
+    }
+  }
+
   async function loadPayments(reset) {
     readFilters();
     if (!filterState.dateFrom || !filterState.dateTo) {
@@ -149,36 +344,26 @@
     if (el.applyBtn) el.applyBtn.disabled = true;
     if (el.loadMoreBtn) el.loadMoreBtn.disabled = true;
 
-    var studentIds = null;
-    if (filterState.nameQ) {
-      var st = await window.supabaseClient
-        .from("students")
-        .select("id")
-        .eq("is_active", true)
-        .ilike("full_name", "%" + filterState.nameQ + "%")
-        .limit(300);
-      if (st.error) {
-        showMessage("Student search failed: " + st.error.message, "error");
-        if (el.applyBtn) el.applyBtn.disabled = false;
-        if (el.loadMoreBtn) el.loadMoreBtn.disabled = false;
-        return;
-      }
-      studentIds = (st.data || []).map(function (r) {
-        return r.id;
-      });
-      if (studentIds.length === 0) {
-        if (el.tbody && reset) {
-          el.tbody.innerHTML =
-            '<tr><td colspan="9" class="attendance-empty">No students match that name. Clear the name filter or try other spellings.</td></tr>';
-        }
-        if (el.meta) el.meta.textContent = "0 payments (no students matched the name).";
-        if (el.loadMoreWrap) el.loadMoreWrap.classList.add("is-hidden");
-        showMessage("", "");
-        if (el.applyBtn) el.applyBtn.disabled = false;
-        if (el.loadMoreBtn) el.loadMoreBtn.disabled = false;
-        return;
-      }
+    var sidRes = await getStudentIdsForNameFilter();
+    if (sidRes.error) {
+      showMessage("Student search failed: " + sidRes.error, "error");
+      if (el.applyBtn) el.applyBtn.disabled = false;
+      if (el.loadMoreBtn) el.loadMoreBtn.disabled = false;
+      return;
     }
+    if (sidRes.noMatch) {
+      if (el.tbody && reset) {
+        el.tbody.innerHTML =
+          '<tr><td colspan="9" class="attendance-empty">No students match that name. Clear the name filter or try other spellings.</td></tr>';
+      }
+      if (el.meta) el.meta.textContent = "0 payments (no students matched the name).";
+      if (el.loadMoreWrap) el.loadMoreWrap.classList.add("is-hidden");
+      showMessage("", "");
+      if (el.applyBtn) el.applyBtn.disabled = false;
+      if (el.loadMoreBtn) el.loadMoreBtn.disabled = false;
+      return;
+    }
+    var studentIds = sidRes.ids;
 
     var q = window.supabaseClient
       .from("fee_payments")

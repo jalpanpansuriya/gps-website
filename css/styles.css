@@ -185,7 +185,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 52rem;
+  max-width: 58rem;
 }
 .staff-dash-welcome {
   display: flex;
@@ -288,6 +288,214 @@ a:hover {
   line-height: 1.4;
   color: rgba(92, 92, 92, 0.85);
   font-style: italic;
+}
+
+.staff-dash-non-admin {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius);
+  border: 1px dashed rgba(0, 0, 0, 0.12);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.staff-fee-dash {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.35rem 1.5rem;
+  background: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.staff-dash-fee-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.staff-dash-fee-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.staff-dash-fee-year {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted, #5c5c5c);
+}
+.staff-dash-fee-note {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-muted, #5c5c5c);
+}
+
+.staff-stat-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .staff-stat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.staff-stat-tile {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  background: var(--color-light, #f8f6f2);
+  border-radius: var(--radius);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.staff-stat-tile--primary {
+  border-left: 4px solid var(--color-primary);
+  background: rgba(232, 93, 4, 0.06);
+}
+.staff-stat-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted, #5c5c5c);
+}
+.staff-stat-value {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.staff-stat-meta {
+  font-size: 0.8rem;
+  color: var(--color-muted, #5c5c5c);
+}
+
+.staff-mode-wrap {
+  margin-top: 0.25rem;
+}
+.staff-mode-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.staff-mode-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+.staff-mode-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+.staff-mode-name {
+  color: var(--color-text);
+}
+.staff-mode-amt {
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.staff-def-preview {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.staff-def-preview-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+}
+.staff-def-preview-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.staff-def-preview-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.staff-def-preview-link:hover {
+  text-decoration: underline;
+}
+.staff-def-preview-empty {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--color-muted, #5c5c5c);
+}
+.staff-def-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--color-white);
+}
+.staff-def-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.staff-def-table th,
+.staff-def-table td {
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.staff-def-table th {
+  background: var(--color-light, #f8f6f2);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-muted, #5c5c5c);
+}
+.staff-def-table tr:last-child td {
+  border-bottom: none;
+}
+.staff-def-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.staff-def-due {
+  font-weight: 700;
+  color: #a63d00;
+}
+
+.fee-help-text code {
+  font-size: 0.88em;
+  padding: 0.1rem 0.35rem;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+}
+
+.fd-table-wrap {
+  margin-top: 1rem;
+}
+.fd-table .fd-empty {
+  text-align: center;
+  color: var(--color-muted, #5c5c5c);
+  padding: 1.25rem;
 }
 
 /* ----- Hero ----- */
